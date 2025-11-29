@@ -163,7 +163,7 @@ export function renderDay(dayNumber: number): HTMLElement {
   const codes = await loadCodes();
   const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
     if (ok) {
-      status.textContent = devMode ? 'Dev mode: auto-unlocked.' : 'Code accepted! Door unlocked.';
+      status.textContent = devMode ? 'Dev mode: instant munch 🍫' : '🍫 Nice! You just ate today\'s chocolate.';
       status.className = 'code-status code-status--success';
       if (!devMode) {
         localStorage.setItem(`day-unlocked-${dayNumber}`, '1');
