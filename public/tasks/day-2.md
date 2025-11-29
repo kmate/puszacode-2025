@@ -1,20 +1,20 @@
-# `Day` 2 — `Prime`-`Even` `Fusion` `Calculator`
+# Day 2 — Prime-Even Fusion Calculator
 
-`Let`'s `build` a `multi`-`step` `data` `cruncher`! ✨
+Let's build a multi-step data cruncher! ✨
 
-`Write` a method ``complexCalculate`(`int`[] `nums`)` that `performs` these `operations` in `order`:
-1. `Remove` `all` `negative` `numbers`.
-2. `Collect` `all` `prime` ``numbers`(`after` `removal`)` and `compute` `their` `sum(S)`.
-3. `Collect` `all` `DISTINCT` `even` `numbers` and `compute` `their` ``product`(P)`. If `there` are no `even` `numbers`, P = 1.
-4. `Find` the `maximum` `number` in the `filtered` list. `Compute` the sum of `its` `decimal` ``digits`(D)`.
-5. `Return`: (S * P) - D.
-6. If `fewer` `than` 2 `numbers` `remain` `after` `removing` `negatives`, return -1.
+Write a method `complexCalculate(int[] nums)` that performs these operations in order:
+1. Remove all negative numbers.
+2. Collect all prime `numbers(after removal)` and compute their `sum(S)`.
+3. Collect all DISTINCT even numbers and compute their `product(P)`. If there are no even numbers, P = 1.
+4. Find the maximum number in the filtered list. Compute the sum of its decimal `digits(D)`.
+5. Return: (S * P) - D.
+6. If fewer than 2 numbers remain after removing negatives, return -1.
 
-`Definitions`:
-- `Prime`: >1 and `divisible` `only` by 1 and `itself`.
-- `Distinct` `even` `numbers`: `each` `counted` `once` `regardless` of `duplicates`.
+Definitions:
+- Prime: >1 and divisible only by 1 and itself.
+- Distinct even numbers: each counted once regardless of duplicates.
 
-**`Examples`:**
+**Examples:**
 ```java
 complexCalculate(new int[]{7, 12, 5});
 // S = 7 + 5 = 12
@@ -35,7 +35,7 @@ complexCalculate(new int[]{-5, 11, 11, 8});
 // Result = (22 * 8) - 2 = 176 - 2 = 174
 ```
 
-**`Your` `task`:**
-`Compute` ``complexCalculate`(`new` `int`[]{7, 12, 12, 5, -3, 18, 21, 8})`. `The` `unlock` `code` is the `computed` `result`.
+**Your task:**
+Compute `complexCalculate(new int[]{7, 12, 12, 5, -3, 18, 21, 8})`. The unlock code is the computed result.
 
-**`Hint`:** `Helper` `methods`: ``isPrime`(`int` n)`, `use` a `Set` for `distinct` `evens`, `digit` sum `via` `loop` or by `converting` to string.
+**Hint:** Helper methods: `isPrime(int n)`, use a `Set` for distinct evens, digit sum via loop or by converting to string.
