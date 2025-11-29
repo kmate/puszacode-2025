@@ -67,11 +67,11 @@ function mdToHtml(md: string): string {
   html = blocks.map(block => {
     const trimmed = block.trim();
     // If block starts with a tag, leave it as-is
-    if (/^<(h\d|ul|pre|li)/.test(trimmed)) {
+    if (/^<(h\d|ul|pre|li|strong)/.test(trimmed)) {
       return trimmed;
     }
-    // Otherwise wrap the whole block in a single <p>
-    return trimmed ? `<p>${trimmed.replace(/\n/g, ' ')}</p>` : '';
+    // Otherwise wrap the whole block in a single <p> (preserve internal newlines as <br>)
+    return trimmed ? `<p>${trimmed.replace(/\n/g, '<br>')}</p>` : '';
   }).filter(b => b).join('\n');
   
   return html;
