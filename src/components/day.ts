@@ -170,8 +170,12 @@ export function renderDay(dayNumber: number): HTMLElement {
       } catch (e) {
         console.warn('Failed to compute hash from entered code, falling back to expected hash.', e);
       }
-      // If computing entered hash failed, use expected hash from codes.json
-      const hashForImage = enteredHash || codes[String(dayNumber)] || null;
+      // Select image hash:
+      // - In dev mode, always use expected hash from codes.json so images resolve
+      // - Otherwise prefer the computed entered hash, fallback to expected
+      const hashForImage = devMode
+        ? (codes[String(dayNumber)] || null)
+        : (enteredHash || codes[String(dayNumber)] || null);
       loadImage(hashForImage);
     } else {
       status.textContent = 'Incorrect code.';
