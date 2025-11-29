@@ -14,6 +14,6 @@ lucas(7) → 29  // 2,1,3,4,7,11,18,29
 
 
 **Your task:**
-Create the method and calculate `lucas(10)`. The unlock code is this result.
+Create the method and calculate lucas(10). The unlock code is this result.
 
 **Hint:** Like Fibonacci, but initialize with 2 and 1!

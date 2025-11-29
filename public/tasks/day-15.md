@@ -13,6 +13,6 @@ collatzLength(1) → 1    // already at 1
 
 
 **Your task:**
-Create the method and call `collatzLength(27)`. The unlock code is this result.
+Create the method and call collatzLength(27). The unlock code is this result.
 
 **Hint:** Use a while loop, count steps until n becomes 1!

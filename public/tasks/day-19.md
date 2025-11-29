@@ -13,6 +13,6 @@ countTwinPrimes(5) → 1   // (3,5)
 
 
 **Your task:**
-Create the method and calculate `countTwinPrimes(30)`. The unlock code is this result.
+Create the method and calculate countTwinPrimes(30). The unlock code is this result.
 
 **Hint:** Check each number if it's prime, then check if number+2 is also prime!

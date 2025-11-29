@@ -15,4 +15,4 @@ findAllIndices(new int[]{1, 2, 3}, 5) → []
 **Your task:**
 Create the method and find indices of 7 in new int[]{3, 7, 5, 7, 2, 7, 9}. The unlock code is the sum of all indices.
 
-**Hint:** Use a `List` to collect indices, then convert to array!
+**Hint:** Use a List to collect indices, then convert to array!

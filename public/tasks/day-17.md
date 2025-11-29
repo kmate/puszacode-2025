@@ -15,4 +15,4 @@ longestConsecutive(new int[]{10, 5, 12}) → 1
 **Your task:**
 Create the method and process new int[]{15, 14, 12, 13, 11, 20, 21}. The unlock code is this result.
 
-**Hint:** Use a `Set` for `O(1)` lookup, then check sequences!
+**Hint:** Use a Set for O(1) lookup, then check sequences!

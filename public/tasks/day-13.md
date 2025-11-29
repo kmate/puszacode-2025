@@ -13,6 +13,6 @@ powerSum(2) → 5   // 1 + 4
 
 
 **Your task:**
-Create the method and calculate `powerSum(5)`. The unlock code is this result.
+Create the method and calculate powerSum(5). The unlock code is this result.
 
-**Hint:** Use Math.`pow(i, i)` in a loop from 1 to n!
+**Hint:** Use Math.pow(i, i) in a loop from 1 to n!
