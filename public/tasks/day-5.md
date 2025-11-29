@@ -1,20 +1,30 @@
-# Pattern Generator
+# Array Merger
 
-Time for string building! 🔄
+Time for array manipulation! �
 
-Write a method called `generatePattern` that takes a character and a number n, and returns a string where each line contains the character repeated i times (for i from 1 to n), with lines separated by newlines.
-
-Then write `countPattern` that takes the result and returns the total count of the character in the entire pattern.
+Write a method called `mergeAndTransform` that takes two sorted integer arrays and:
+1. Merges them into a single sorted array (maintaining order)
+2. Removes all duplicates
+3. Keeps only numbers that appear at an even index (0, 2, 4, ...) in the merged result
+4. Returns the sum of these numbers
 
 **Examples:**
 ```java
-generatePattern('*', 3) → "*\n**\n***"
-generatePattern('#', 2) → "#\n##"
+mergeAndTransform(new int[]{1, 3, 5}, new int[]{2, 4, 6})
+// Merged: [1, 2, 3, 4, 5, 6]
+// Even indices (0,2,4): 1, 3, 5
+// Sum: 9
 
-countPattern(generatePattern('*', 3)) → 6  // 1 + 2 + 3
-countPattern(generatePattern('X', 4)) → 10  // 1 + 2 + 3 + 4
-countPattern(generatePattern('#', 5)) → 15  // 1 + 2 + 3 + 4 + 5
+mergeAndTransform(new int[]{1, 2, 3}, new int[]{2, 3, 4})
+// Merged: [1, 2, 3, 4] (duplicates removed)
+// Even indices (0,2): 1, 3
+// Sum: 4
+
+mergeAndTransform(new int[]{5, 10}, new int[]{15, 20, 25})
+// Merged: [5, 10, 15, 20, 25]
+// Even indices (0,2,4): 5, 15, 25
+// Sum: 45
 ```
 
 **Your task:**
-Generate pattern with 'Z' and 9 levels, then count total 'Z' characters. The unlock code is this count.
+Calculate `mergeAndTransform(new int[]{3, 7, 11, 15, 19}, new int[]{5, 11, 17, 23})`. The unlock code is this result.
