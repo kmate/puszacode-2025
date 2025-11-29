@@ -137,7 +137,7 @@ export function renderDay(dayNumber: number): HTMLElement {
     reveal.style.display = 'none';
   }
   if (unlocked) {
-    status.textContent = 'Door already unlocked.';
+    status.textContent = '🍫 You already ate this chocolate!';
     openBtn.style.display = 'none';
     codeInput.style.display = 'none';
     // Load expected hash and show image by hash to avoid missing fallback
