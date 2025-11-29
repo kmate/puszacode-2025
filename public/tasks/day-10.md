@@ -13,6 +13,6 @@ findSecondMax(new int[]{7, 7, 7}) → 7
 
 
 **`Your` `task`:**
-`Create` the method and `find` ``findSecondMax`(`new` int[]{34, 67, 23, 89, 12, 89})`. `The` `unlock` `code` is this `number`.
+`Create` the method and `find` ``findSecondMax`(`new` `int`[]{34, 67, 23, 89, 12, 89})`. `The` `unlock` `code` is this `number`.
 
 **`Hint`:** `Find` max `first`, then `find` the `largest` `number` that's `smaller` `than` max!

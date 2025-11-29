@@ -13,6 +13,6 @@ findMode(new int[]{3, 1, 2}) → 1         // all equal frequency
 
 
 **`Your` `task`:**
-`Create` the method and `find` the `mode` of `new` int[]{8, 12, 8, 16, 20, 12, 8, 4}. `The` `unlock` `code` is this `result`.
+`Create` the method and `find` the `mode` of `new` `int`[]{8, 12, 8, 16, 20, 12, 8, 4}. `The` `unlock` `code` is this `result`.
 
 **`Hint`:** `Use` a `Map` to `count` `frequencies`, `find` the `maximum` `count`!

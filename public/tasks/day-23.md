@@ -13,6 +13,6 @@ rotateArray(new int[]{1,2,3,4,5}, 7) → 4   // same as k=2
 
 
 **`Your` `task`:**
-`Create` the method and `rotate` `new` int[]{10,20,30,40,50,60,70} by k=-3. `The` `unlock` `code` is the `element` at `index` 0.
+`Create` the method and `rotate` `new` `int`[]{10,20,30,40,50,60,70} by k=-3. `The` `unlock` `code` is the `element` at `index` 0.
 
 **`Hint`:** `Use` `modulo` to `normalize` k, `handle` `negative` by `converting` to `positive` `rotation`!

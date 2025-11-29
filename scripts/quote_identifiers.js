@@ -11,21 +11,20 @@ function processSection(text) {
   const fences = text.match(/```[\s\S]*?```/g) || [];
 
   const processed = parts.map(part => {
-    // Wrap function identifiers like name(), snake_case(), camelCase()
-    part = part.replace(/\b([A-Za-z_][A-Za-z0-9_]*\s*)\(\)/g, '`$1()`');
-    // Wrap methods with args e.g., computeSum(int, int)
-    part = part.replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*\(([^)]*)\)/g, (m, fn, args) => `\`${fn}(${args})\``);
-    // Wrap PascalCase likely types/classes
-    part = part.replace(/\b([A-Z][a-zA-Z0-9_]{2,})\b/g, '`$1`');
-    // Wrap snake_case and camelCase words of length >=3
-    part = part.replace(/\b([a-z]+[A-Za-z0-9_]{2,})\b/g, (m, w) => {
-      // Heuristic: skip common English words to reduce false positives
-      const skip = new Set(['the','and','for','with','when','then','into','from','this','that','these','those','you','are','will','should','must','can','sum','max','min','array','list','string','int','long','double','char','class','method','function','return','example','input','output','constraints','note']);
-      if (skip.has(w.toLowerCase())) return m;
-      // Skip already-backticked
-      return `\`${m}\``;
+    // Only quote explicit identifiers:
+    // 1) Functions/methods with parentheses (foo(), computeSum(int, int))
+    part = part.replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*\(([^)]*)\)/g, (m, fn, args) => {
+      // Already quoted?
+      if (/^`/.test(m) && /`$/.test(m)) return m;
+      return `\`${fn}(${args})\``;
     });
-    // Avoid double quoting: compress ``` into single backticks if accidentally inside
+    // 2) Known Java types and keywords when mentioned in prose (avoid broad PascalCase/snake/camel)
+    const typeWords = ['String','int','long','double','char','List','Map','Set','Arrays','Collections'];
+    typeWords.forEach(t => {
+      const re = new RegExp('(^|[^`])\\b' + t + '\\b', 'g');
+      part = part.replace(re, function(m, pre){ return pre + '`' + t + '`'; });
+    });
+    // Avoid double quoting artifacts
     part = part.replace(/``([^`]+)``/g, '`$1`');
     return part;
   });

@@ -13,6 +13,6 @@ getRange(new int[]{5}) → 0              // 5 - 5
 
 
 **`Your` `task`:**
-`Create` the method and `calculate` ``getRange`(`new` int[]{15, 3, 22, 8, 17})`. `The` `unlock` `code` is this `result`.
+`Create` the method and `calculate` ``getRange`(`new` `int`[]{15, 3, 22, 8, 17})`. `The` `unlock` `code` is this `result`.
 
 **`Hint`:** `Find` `both` max and min, then ``subtract`(min - max)`!

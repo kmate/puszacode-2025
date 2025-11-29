@@ -13,7 +13,7 @@ spiralSum(new int[][]{{1,2,3},{4,5,6},{7,8,9}}) → 40
 
 **`Your` `task`:**
 `Create` the method for a 4x4 `matrix`:
-`new` int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}}
+`new` `int`[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}}
 
 `The` `unlock` `code` is this `result`.
 

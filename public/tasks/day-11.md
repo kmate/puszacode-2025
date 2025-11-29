@@ -16,6 +16,6 @@ processArray(new int[]{1, 2, 4}) → 0         // no numbers divisible by 3 or 5
 
 
 **`Your` `task`:**
-`Create` the method and `process` `new` int[]{6, 7, 9, 10, 12, 15}. `The` `unlock` `code` is this `result`.
+`Create` the method and `process` `new` `int`[]{6, 7, 9, 10, 12, 15}. `The` `unlock` `code` is this `result`.
 
 **`Hint`:** `Filter` `numbers` `where` n%3==0 OR n%5==0, then `square` and sum!
