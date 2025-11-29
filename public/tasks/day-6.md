@@ -17,22 +17,15 @@ Definitions:
 **Examples:**
 ```java
 complexCalculate(new int[]{7, 12, 5});
-// S = 7 + 5 = 12
-// Distinct evens = {12} → P = 12
-// Max = 12 → D = 1 + 2 = 3
-// Result = (12 * 12) - 3 = 144 - 3 = 141
+// S = 7 + 5 = 12, Distinct evens = {12} → P = 12
+// Max = 12 → D = 1 + 2 = 3, Result = (12 * 12) - 3 = 141
 complexCalculate(new int[]{2, 2, 3, 4});
-// Filter: all non-negative already.
-// Primes: 2, 2, 3 → S = 2 + 2 + 3 = 7 (count duplicates normally)
-// Distinct evens: {2, 4} → P = 2 * 4 = 8
-// Max = 4 → D = 4
-// Result = (7 * 8) - 4 = 56 - 4 = 52
+// Primes: 2, 2, 3 → S = 7, Distinct evens: {2, 4} → P = 8
+// Max = 4 → D = 4, Result = (7 * 8) - 4 = 52
 complexCalculate(new int[]{-5, 11, 11, 8});
-// Filter: {11, 11, 8}
-// Primes: 11 + 11 = 22 → S = 22
-// Distinct evens: {8} → P = 8
-// Max = 11 → D = 1 + 1 = 2
-// Result = (22 * 8) - 2 = 176 - 2 = 174
+// Filter: {11, 11, 8}, Primes: 11 + 11 = 22 → S = 22
+// Distinct evens: {8} → P = 8, Max = 11 → D = 2
+// Result: (22 * 8) - 2 = 174
 ```
 
 **Your task:**
