@@ -1,23 +1,19 @@
-# Palindrome Checker
+# Fibonacci Filter
 
-Let's check for symmetry! 🪞
+Let's combine sequences and filtering! 🔢
 
-Write a method called `isPalindrome` that takes a string and returns true if it reads the same forwards and backwards (ignoring spaces, punctuation, and case), false otherwise.
+Write a method called `fibonacciSum` that takes an array of integers and returns the sum of all numbers in the array that are Fibonacci numbers.
 
-Then write `longestPalindrome` that takes an array of strings and returns the length of the longest palindrome in the array. If no palindromes exist, return 0.
+A Fibonacci number is a number that appears in the Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
 
 **Examples:**
 ```java
-isPalindrome("racecar") → true
-isPalindrome("hello") → false
-isPalindrome("A man a plan a canal Panama") → true
-isPalindrome("Was it a car or a cat I saw") → true
-isPalindrome("") → true  // empty is palindrome
-
-longestPalindrome(new String[]{"hello", "level", "world"}) → 5  // "level"
-longestPalindrome(new String[]{"noon", "deed", "morning"}) → 4  // both are 4
-longestPalindrome(new String[]{"java", "code"}) → 0  // no palindromes
+fibonacciSum(new int[]{1, 2, 3, 4, 5}) → 11  // 1 + 2 + 3 + 5
+fibonacciSum(new int[]{10, 13, 15, 21}) → 34  // 13 + 21
+fibonacciSum(new int[]{8, 9, 10, 11}) → 8  // only 8
+fibonacciSum(new int[]{100, 200, 300}) → 0  // no Fibonacci numbers
+fibonacciSum(new int[]{0, 1, 1, 2}) → 4  // 0 + 1 + 1 + 2
 ```
 
 **Your task:**
-Find `longestPalindrome(new String[]{"racecar", "hello", "deified", "noon", "java"})`. The unlock code is this number.
+Calculate `fibonacciSum(new int[]{3, 5, 7, 8, 13, 15, 21, 34, 50, 55})`. The unlock code is this result.
