@@ -1,0 +1,234 @@
+/* Art Nouveau (Mucha-inspired) festive theme */
+/* Palette: deep forest green, warm gold, cranberry red, cream */
+:root {
+    --green: #0f3b2e;
+    --gold: #c8a24a;
+    --red: #8b2e2e;
+    --cream: #fff6e6;
+    --ink: #1e1b18;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif;
+    color: var(--ink);
+    background:
+        radial-gradient(1200px 600px at 80% -20%, rgba(200,162,74,0.08), transparent 60%),
+        radial-gradient(900px 500px at -20% 80%, rgba(139,46,46,0.10), transparent 60%),
+        linear-gradient(180deg, #0b2a21 0%, #104234 100%);
+}
+
+#app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    color: var(--cream);
+    text-shadow: 0 2px 0 rgba(15,59,46,0.6);
+}
+
+.ornament {
+    height: 16px;
+    margin: 12px 0 24px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0 28px,
+        rgba(200,162,74,0.35) 28px 30px,
+        transparent 30px 58px,
+        rgba(200,162,74,0.35) 58px 60px
+    );
+    mask-image: radial-gradient(12px 12px at 12px 50%, black 30%, transparent 70%),
+                            radial-gradient(12px 12px at calc(100% - 12px) 50%, black 30%, transparent 70%);
+    mask-composite: exclude;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    gap: 14px;
+    padding: 16px;
+}
+
+.calendar-day {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,246,230,0.94), rgba(255,246,230,0.86));
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: 18px 12px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 0 rgba(200,162,74,0.25), 0 10px 24px rgba(0,0,0,0.15);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.calendar-day::before, .calendar-day::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 10px;
+    pointer-events: none;
+}
+.calendar-day::before {
+    border: 1px dashed rgba(200,162,74,0.55);
+}
+.calendar-day::after {
+    background: radial-gradient(120px 60px at 50% 0%, rgba(139,46,46,0.08), transparent 60%);
+}
+
+.calendar-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(200,162,74,0.30), 0 18px 32px rgba(0,0,0,0.22);
+}
+
+.calendar-day:active {
+    transform: translateY(0);
+}
+
+.day-container {
+    background: linear-gradient(180deg, rgba(255,246,230,0.97), rgba(255,246,230,0.88));
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 0 rgba(200,162,74,0.25), 0 10px 24px rgba(0,0,0,0.15);
+}
+
+/* Improve contrast of day title inside the day view */
+.day-container h1 {
+    color: var(--ink);
+    text-shadow: none;
+}
+
+#day-number { color: var(--red); }
+
+#content {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--gold);
+    background: rgba(255,246,230,0.6);
+}
+
+button#open-door {
+    margin-top: 18px;
+    padding: 10px 16px;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    color: var(--cream);
+    background: linear-gradient(180deg, #9c3232, #7a2626);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    box-shadow: 0 4px 0 rgba(200,162,74,0.25), 0 10px 24px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+button#open-door:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 0 rgba(200,162,74,0.30), 0 18px 32px rgba(0,0,0,0.22);
+}
+
+@media (max-width: 800px) {
+    .calendar { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 540px) {
+    .calendar { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Header styles */
+.site-header {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 0;
+}
+.site-header a {
+    cursor: pointer;
+    transition: opacity 180ms ease;
+}
+.site-header a:hover {
+    opacity: 0.92;
+}
+.header-image {
+    width: 100%;
+    max-width: 1200px;
+    max-height: 220px;
+    height: auto;
+    border: 2px solid var(--gold);
+    border-radius: 18px;
+    box-shadow: 0 3px 0 rgba(200,162,74,0.25), 0 8px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(180deg, rgba(255,246,230,0.12), rgba(255,246,230,0));
+    backdrop-filter: blur(2px);
+    object-fit: cover;
+}
+
+/* Code input & door reveal */
+.code-input-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.code-input {
+    flex: 1 1 220px;
+    padding: 10px 12px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    background: rgba(255,246,230,0.75);
+    color: var(--ink);
+}
+.code-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200,162,74,0.35);
+}
+/* Open / Unlock button states */
+button#open-door[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.code-status--success + #open-door {
+    background: linear-gradient(180deg, #c8a24a, #9c7d32);
+    color: var(--ink);
+}
+
+.code-input.invalid {
+    border-color: var(--red);
+}
+.code-input.valid {
+    border-color: var(--green);
+}
+
+.code-status {
+    flex: 1 1 100%;
+    min-height: 20px;
+    font-size: 14px;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--ink);
+}
+.code-status--success { color: var(--green); }
+.code-status--error { color: var(--red); }
+
+.door-reveal {
+    margin-top: 16px;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--gold);
+    border-radius: 14px;
+    background: rgba(255,246,230,0.4);
+    padding: 12px;
+}
+.door-reveal img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    border: 2px solid var(--gold);
+}

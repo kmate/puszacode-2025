@@ -1,0 +1,28 @@
+{
+  "name": "puszacode-2025",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "build": "vite build",
+    "start": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmate/puszacode-2025.git"
+  },
+  "keywords": [
+    "advent calendar"
+  ],
+  "author": "kmate",
+  "license": "MIT",
+  "dependencies": {
+    "gh-pages": "^6.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^7.2.4"
+  }
+}
