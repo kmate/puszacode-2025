@@ -1,8 +1,8 @@
-# Day 18 — Pig Latin Converter
+# Pig Latin Converter
 
 Transform to Pig Latin! ✍️
 
-Write a method called toPigLatin that converts a word to Pig Latin: move the first letter to the end and add "ay". For simplicity, assume input is a single lowercase word.
+Write a method called `toPigLatin` that converts a word to Pig Latin: move the first letter to the end and add "ay". For simplicity, assume input is a single lowercase word.
 
 **Example:**
 ```java

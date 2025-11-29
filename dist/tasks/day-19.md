@@ -1,8 +1,8 @@
-# Day 19 — Twin Prime Counter
+# Twin Prime Counter
 
 Count twin prime pairs! 🔢
 
-Write a method called countTwinPrimes that takes a number n and returns how many twin prime pairs exist up to n. Twin primes are pairs of primes that differ by 2 (like 3,5 or 11,13).
+Write a method called `countTwinPrimes` that takes a number n and returns how many twin prime pairs exist up to n. Twin primes are pairs of primes that differ by 2 (like 3,5 or 11,13).
 
 **Example:**
 ```java
@@ -13,6 +13,6 @@ countTwinPrimes(5) → 1   // (3,5)
 
 
 **Your task:**
-Create the method and calculate countTwinPrimes(30). The unlock code is this result.
+Create the method and calculate `countTwinPrimes(30)`. The unlock code is this result.
 
 **Hint:** Check each number if it's prime, then check if number+2 is also prime!

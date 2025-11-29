@@ -1,8 +1,8 @@
-# Day 23 — Array Rotation Advanced
+# Array Rotation Advanced
 
 Rotate in both directions! ✂️
 
-Write a method called rotateArray that takes an array and number k, and rotates right if k is positive, left if k is negative. Return the element at index 0 after rotation.
+Write a method called `rotateArray` that takes an array and number k, and rotates right if k is positive, left if k is negative. Return the element at index 0 after rotation.
 
 **Example:**
 ```java

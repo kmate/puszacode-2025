@@ -1,8 +1,8 @@
-# Day 22 — Anagram Groups
+# Anagram Groups
 
 Count anagram groups! 🔤
 
-Write a method called countAnagramGroups that takes an array of strings and returns the number of distinct anagram groups.
+Write a method called `countAnagramGroups` that takes an array of strings and returns the number of distinct anagram groups.
 
 **Example:**
 ```java
@@ -15,8 +15,8 @@ countAnagramGroups(new String[]{"abc", "bca", "cab"}) → 1
 
 **Your task:**
 Create the method and count groups in:
-new String[]{"listen", "silent", "enlist", "hello", "world"}
+new `String`[]{"listen", "silent", "enlist", "hello", "world"}
 
 The unlock code is this result.
 
-**Hint:** Use a Map with sorted characters as key, group words, count distinct groups!
+**Hint:** Use a `Map` with sorted characters as key, group words, count distinct groups!

@@ -1,8 +1,8 @@
-# Day 11 — Array Transformation Chain
+# Array Transformation Chain
 
 Let's chain multiple operations! 🎯
 
-Write a method called processArray that takes an array of integers and:
+Write a method called `processArray` that takes an array of integers and:
 1. Filters only numbers divisible by 3 OR 5
 2. Squares each remaining number
 3. Returns the sum of all squared numbers

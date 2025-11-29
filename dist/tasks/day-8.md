@@ -1,8 +1,8 @@
-# Day 8 — Consonant Counter
+# Consonant Counter
 
 Let's count characters! 🔤
 
-Write a method called countConsonants that takes a string and returns the number of consonants (letters that are NOT vowels: a, e, i, o, u). Only count letters, ignore numbers and special characters.
+Write a method called `countConsonants` that takes a string and returns the number of consonants(letters that are NOT vowels: a, e, i, o, u). Only count letters, ignore numbers and special characters.
 
 **Example:**
 ```java

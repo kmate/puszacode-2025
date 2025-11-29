@@ -1,8 +1,8 @@
-# Day 7 — Array Statistics
+# Array Statistics
 
 Welcome to arrays! 📚
 
-Write a method called getRange that takes an array of integers and returns the difference between the minimum and maximum values (min - max, which will be negative).
+Write a method called `getRange` that takes an array of integers and returns the difference between the minimum and maximum values(min - max, which will be negative).
 
 **Example:**
 ```java
@@ -13,6 +13,6 @@ getRange(new int[]{5}) → 0              // 5 - 5
 
 
 **Your task:**
-Create the method and calculate getRange(new int[]{15, 3, 22, 8, 17}). The unlock code is this result.
+Create the method and calculate `getRange(new int[]{15, 3, 22, 8, 17})`. The unlock code is this result.
 
-**Hint:** Find both max and min, then subtract (min - max)!
+**Hint:** Find both max and min, then subtract(min - max)!

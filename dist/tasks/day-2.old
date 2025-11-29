@@ -37,3 +37,5 @@ complexCalculate(new int[]{-5, 11, 11, 8});
 
 **Your task:**
 Compute `complexCalculate(new int[]{7, 12, 12, 5, -3, 18, 21, 8})`. The unlock code is the computed result.
+
+**Hint:** Helper methods: `isPrime(int n)`, use a `Set` for distinct evens, digit sum via loop or by converting to string.

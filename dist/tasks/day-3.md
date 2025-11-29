@@ -1,37 +1,19 @@
-# Day 3 — Digit Pattern Analyzer
+# Array Rotator
 
-Let's analyze number patterns! 🎯
+Time to shift things around! 🔄
 
-Write a method called analyzeDigits that takes a positive integer and returns a score based on these rules:
-1. Start with a base score of 0
-2. For each digit in the number (left to right):
-   - If the digit is even: add (digit × position) to the score, where position starts at 1
-   - If the digit is odd: subtract (digit + position) from the score
-3. If the final score is negative, return its absolute value
-4. Otherwise return the score as-is
+Write a method called `rotateArray` that takes an array of integers and a number k, then rotates the array to the right by k positions. Elements that fall off the end wrap around to the beginning.
 
-**Example:**
+**Examples:**
 ```java
-analyzeDigits(246)
-// Position 1: 2 (even) → score = 0 + (2×1) = 2
-// Position 2: 4 (even) → score = 2 + (4×2) = 10
-// Position 3: 6 (even) → score = 10 + (6×3) = 28
-// Result: 28
-analyzeDigits(135)
-// Position 1: 1 (odd) → score = 0 - (1+1) = -2
-// Position 2: 3 (odd) → score = -2 - (3+2) = -7
-// Position 3: 5 (odd) → score = -7 - (5+3) = -15
-// Result: 15 (absolute value)
-analyzeDigits(2531)
-// Position 1: 2 (even) → score = 0 + (2×1) = 2
-// Position 2: 5 (odd) → score = 2 - (5+2) = -5
-// Position 3: 3 (odd) → score = -5 - (3+3) = -11
-// Position 4: 1 (odd) → score = -11 - (1+4) = -16
-// Result: 16 (absolute value)
+rotateArray(new int[]{1, 2, 3, 4, 5}, 2) → [4, 5, 1, 2, 3]
+// Move last 2 to front
+rotateArray(new int[]{10, 20, 30}, 1) → [30, 10, 20]
+rotateArray(new int[]{1, 2, 3, 4}, 4) → [1, 2, 3, 4]
+// Full rotation = same array
+rotateArray(new int[]{7, 8, 9}, 5) → [8, 9, 7]
+// 5 % 3 = 2, so rotate by 2
 ```
 
-
 **Your task:**
-Create the method and compute analyzeDigits(84267). The unlock code is this result.
-
-**Hint:** Convert to string to iterate digits, track position counter, handle sign at the end!
+Create the method and rotate `new int[]{5, 10, 15, 20, 25, 30}` by 4 positions. Return the element at index 2 of the rotated array as the unlock code.

@@ -1,8 +1,8 @@
-# Day 1 — General Name Parts Length
+# General Name Parts Length
 
 Welcome to your coding adventure! 🎄
 
-Write a method called totalNameLength that takes a full name string and returns the sum of the lengths of ALL its word parts (2 or more), ignoring spaces and removing any non-letter characters inside each part (e.g. hyphens, apostrophes). If the input is null/blank or contains fewer than 2 valid parts after cleaning, return -1.
+Write a method called `totalNameLength` that takes a full name string and returns the sum of the lengths of ALL its word parts (2 or more), ignoring spaces and removing any non-letter characters inside each part (e.g. hyphens, apostrophes). If the input is null/blank or contains fewer than 2 valid parts after cleaning, return -1.
 
 Rules:
 1. Trim leading/trailing spaces.
@@ -23,6 +23,4 @@ totalNameLength(null) // → -1                  // null
 ```
 
 **Your task:**
-Implement the method and compute totalNameLength("Rudolf The Red Nosed Reindeer"). The unlock code is this resulting number.
-
-**Hint:** Use split on whitespace, then for each part apply a letters-only filter before counting.
+Implement the method and compute `totalNameLength("Rudolf The Red Nosed Reindeer")`. The unlock code is this resulting number.

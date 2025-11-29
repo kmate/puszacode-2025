@@ -1,8 +1,8 @@
-# Day 14 — Palindrome Length
+# Palindrome Length
 
 Find the longest palindrome! 🔄
 
-Write a method called longestPalindromeLength that takes a string and returns the length of the longest palindromic substring (case-insensitive, spaces ignored).
+Write a method called `longestPalindromeLength` that takes a string and returns the length of the longest palindromic substring(case-insensitive, spaces ignored).
 
 **Example:**
 ```java

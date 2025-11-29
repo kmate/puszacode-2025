@@ -1,8 +1,8 @@
-# Day 21 — Spiral Matrix
+# Spiral Matrix
 
 Sum spiral elements! 📦
 
-Write a method called spiralSum that takes a square matrix and returns the sum of elements along the outer spiral (first row, last column, last row in reverse, first column in reverse).
+Write a method called `spiralSum` that takes a square matrix and returns the sum of elements along the outer spiral(first row, last column, last row in reverse, first column in reverse).
 
 **Example:**
 ```java
@@ -17,4 +17,4 @@ new int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}}
 
 The unlock code is this result.
 
-**Hint:** Sum first row, then last column (skip first), then last row reversed (skip last), then first column reversed (skip first and last)!
+**Hint:** Sum first row, then last `column(skip first)`, then last row reversed(skip last), then first column reversed(skip first and last)!
