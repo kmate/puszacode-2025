@@ -61,11 +61,19 @@ function mdToHtml(md: string): string {
   // Wrap consecutive list items with <ul>
   html = html.replace(/((<li>[\s\S]*?<\/li>\n?)+)/g, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`);
   
-  // Remove empty lines to prevent extra spacing
-  html = html.replace(/^\s*$/gm, '');
+  // Handle paragraphs: wrap consecutive non-tag lines in a single <p> tag
+  // Split by double newlines (blank line = paragraph break in markdown)
+  const blocks = html.split(/\n\n+/);
+  html = blocks.map(block => {
+    const trimmed = block.trim();
+    // If block starts with a tag, leave it as-is
+    if (/^<(h\d|ul|pre|li)/.test(trimmed)) {
+      return trimmed;
+    }
+    // Otherwise wrap the whole block in a single <p>
+    return trimmed ? `<p>${trimmed.replace(/\n/g, ' ')}</p>` : '';
+  }).filter(b => b).join('\n');
   
-  // Paragraphs (only for non-empty lines that aren't already tags)
-  html = html.replace(/^(?!<h\d|<ul|<pre|<li)(.+)$/gm, '<p>$1</p>');
   return html;
 }
 
