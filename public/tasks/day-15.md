@@ -2,7 +2,7 @@
 
 Explore the Collatz sequence! 🎮
 
-Write a method called collatzLength that takes a starting number and returns the length of its Collatz sequence until it reaches 1. Rules: if even, divide by 2; if odd, multiply by 3 and add 1.
+Write a method called `collatzLength` that takes a starting number and returns the length of its Collatz sequence until it reaches 1. Rules: if even, divide by 2; if odd, multiply by 3 and add 1.
 
 **Example:**
 ```java
@@ -13,6 +13,6 @@ collatzLength(1) → 1    // already at 1
 
 
 **Your task:**
-Create the method and call collatzLength(27). The unlock code is this result.
+Create the method and call `collatzLength(27)`. The unlock code is this result.
 
 **Hint:** Use a while loop, count steps until n becomes 1!

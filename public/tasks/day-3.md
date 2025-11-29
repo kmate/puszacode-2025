@@ -2,7 +2,7 @@
 
 Let's analyze number patterns! 🎯
 
-Write a method called analyzeDigits that takes a positive integer and returns a score based on these rules:
+Write a method called `analyzeDigits` that takes a positive integer and returns a score based on these rules:
 1. Start with a base score of 0
 2. For each digit in the number(left to right):
    - If the digit is even: add(digit × position) to the score, where position starts at 1
@@ -32,6 +32,6 @@ analyzeDigits(2531)
 
 
 **Your task:**
-Create the method and compute analyzeDigits(84267). The unlock code is this result.
+Create the method and compute ``analyzeDigits(84267)``. The unlock code is this result.
 
 **Hint:** Convert to string to iterate digits, track position counter, handle sign at the end!

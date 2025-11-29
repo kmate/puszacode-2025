@@ -2,7 +2,7 @@
 
 Calculate nested powers! 🎲
 
-Write a method called powerSum that takes a number n and returns the sum: 1¹ + 2² + 3³ + ... + nⁿ (each number raised to itself).
+Write a method called `powerSum` that takes a number n and returns the sum: 1¹ + 2² + 3³ + ... + nⁿ (each number raised to itself).
 
 **Example:**
 ```java
@@ -13,6 +13,6 @@ powerSum(2) → 5   // 1 + 4
 
 
 **Your task:**
-Create the method and calculate powerSum(5). The unlock code is this result.
+Create the method and calculate `powerSum(5)`. The unlock code is this result.
 
-**Hint:** Use Math.pow(i, i) in a loop from 1 to n!
+**Hint:** Use `Math`.pow(i, i) in a loop from 1 to n!

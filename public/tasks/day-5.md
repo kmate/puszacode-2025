@@ -2,7 +2,7 @@
 
 Let's explore strings! 📝
 
-Write a method called countWords that takes a string and returns the number of words in it. Words are separated by spaces. Ignore leading/trailing spaces.
+Write a method called `countWords` that takes a string and returns the number of words in it. Words are separated by spaces. Ignore leading/trailing spaces.
 
 **Example:**
 ```java
@@ -16,4 +16,4 @@ countWords("") → 0
 **Your task:**
 Create the method and count words in "Merry Christmas Happy Coding". The unlock code is this number.
 
-**Hint:** Use trim() and split(), then handle edge cases!
+**Hint:** Use ``trim()`` and `split()`, then handle edge cases!
