@@ -39,25 +39,3 @@ complexCalculate(new int[]{-5, 11, 11, 8});
 Compute `complexCalculate(new int[]{7, 12, 12, 5, -3, 18, 21, 8})`. The unlock code is the computed result.
 
 **Hint:** Helper methods: `isPrime(int n)`, use a `Set` for distinct evens, digit sum via loop or by converting to string.
-
----
-
-OLD TASK BELOW (REPLACED):
-
-# Pattern Generator
-
-Time for string manipulation! 🔄
-
-Write a method called `generatePattern` that takes a character and a number n, and returns a string where each line contains the character repeated i times(for i from 1 to n), with lines separated by newlines.
-
-**Example:**
-```java
-generatePattern('*', 3) → "*\n**\n***"
-generatePattern('#', 2) → "#\n##"
-```
-
-
-**Your task:**
-Create the method and call `generatePattern('X', 4)`. The unlock code is the total number of 'X' characters in the result.
-
-**Hint:** Use nested loops - outer for lines, inner for characters per line!
