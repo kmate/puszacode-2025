@@ -3,13 +3,12 @@
 Calculate a weighted score from an array! 📊
 
 Write a method called `weightedScore` that takes an array of integers and computes a score using these rules:
-1. Split the array into two halves(if odd length, the middle element goes to the first half)
-2. For the first half: multiply each element by its index(starting from 1) and sum them
-3. For the second half: multiply each element by its reverse index(counting backwards from the half length) and sum them
+1. Split the array into two halves (if odd length, the middle element goes to the first half)
+2. For the first half: multiply each element by its index (starting from 1) and sum them
+3. For the second half: multiply each element by its reverse index (counting backwards from the half length) and sum them
 4. Return the absolute difference between the two half-sums
 
 **Example:**
-```java
 ```java
 weightedScore(new int[]{2, 4, 6, 8})
 // First half: [2, 4] → (2×1) + (4×2) = 2 + 8 = 10
@@ -32,4 +31,4 @@ weightedScore(new int[]{10, 20, 30, 40, 50, 60})
 **Your task:**
 Create the method and compute `weightedScore(new int[]{5, 10, 15, 20, 25, 30, 35})`. The unlock code is this result.
 
-**Hint:** Find midpoint with `(len+1)/$2` for integer division, use two separate loops for each half!
+**Hint:** Find midpoint with `(len+1)/2` for integer division, use two separate loops for each half!

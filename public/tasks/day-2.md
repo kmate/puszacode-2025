@@ -4,9 +4,9 @@ Let's build a multi-step data cruncher! ✨
 
 Write a method `complexCalculate(int[] nums)` that performs these operations in order:
 1. Remove all negative numbers.
-2. Collect all prime numbers(after removal) and compute their sum(S).
-3. Collect all DISTINCT even numbers and compute their product(P). If there are no even numbers, P = 1.
-4. Find the maximum number in the filtered list. Compute the sum of its decimal digits(D).
+2. Collect all prime numbers (after removal) and compute their sum (S).
+3. Collect all DISTINCT even numbers and compute their product (P). If there are no even numbers, P = 1.
+4. Find the maximum number in the filtered list. Compute the sum of its decimal digits (D).
 5. Return: (S * P) - D.
 6. If fewer than 2 numbers remain after removing negatives, return -1.
 
