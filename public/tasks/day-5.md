@@ -1,6 +1,6 @@
 # Array Merger
 
-Time for array manipulation! �
+Time for array manipulation! 🔀
 
 Write a method called `mergeAndTransform` that takes two sorted integer arrays and:
 1. Merges them into a single sorted array (maintaining order)
