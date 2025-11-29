@@ -61,7 +61,10 @@ function mdToHtml(md: string): string {
   // Wrap consecutive list items with <ul>
   html = html.replace(/((<li>[\s\S]*?<\/li>\n?)+)/g, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`);
   
-  // Paragraphs
+  // Remove empty lines to prevent extra spacing
+  html = html.replace(/^\s*$/gm, '');
+  
+  // Paragraphs (only for non-empty lines that aren't already tags)
   html = html.replace(/^(?!<h\d|<ul|<pre|<li)(.+)$/gm, '<p>$1</p>');
   return html;
 }
