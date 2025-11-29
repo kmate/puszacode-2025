@@ -23,11 +23,41 @@ export class Calendar {
         const calendarContainer = document.createElement('div');
         calendarContainer.className = 'calendar';
 
+        // Get URL params for dev mode and simulated day
+        const urlParams = new URLSearchParams(window.location.search);
+        const devMode = urlParams.get('dev') === '1';
+        const simulatedDay = urlParams.get('day');
+        
+        // Determine current day for visibility
+        const now = new Date();
+        let currentDay: number;
+        
+        if (simulatedDay) {
+            // Use simulated day if provided
+            currentDay = parseInt(simulatedDay, 10);
+        } else if (now.getMonth() === 11 && now.getFullYear() === this.year) {
+            // We're in December of the calendar year
+            currentDay = now.getDate();
+        } else {
+            // Outside December - show no days (unless dev mode)
+            currentDay = 0;
+        }
+
         this.days.forEach(day => {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day';
             dayElement.innerText = `Day ${day.day}`;
-            dayElement.onclick = () => this.handleDayClick(day);
+            
+            // Show day if: dev mode OR day is <= current day
+            if (devMode || day.day <= currentDay) {
+                dayElement.onclick = () => this.handleDayClick(day);
+            } else {
+                // Future day - make it look locked
+                dayElement.classList.add('locked');
+                dayElement.style.opacity = '0.4';
+                dayElement.style.cursor = 'not-allowed';
+            }
+            
             calendarContainer.appendChild(dayElement);
         });
 
