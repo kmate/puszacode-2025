@@ -21,5 +21,3 @@ longestPalindrome(new String[]{"java", "code"}) → 0  // no palindromes
 
 **Your task:**
 Find `longestPalindrome(new String[]{"racecar", "hello", "deified", "noon", "java"})`. The unlock code is this number.
-
-**Hint:** For isPalindrome: clean the string (only letters, lowercase), then compare with its reverse!

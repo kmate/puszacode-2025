@@ -18,5 +18,3 @@ countPattern(generatePattern('#', 5)) → 15  // 1 + 2 + 3 + 4 + 5
 
 **Your task:**
 Generate pattern with 'Z' and 9 levels, then count total 'Z' characters. The unlock code is this count.
-
-**Hint:** Use nested loops for generation, or use formula n*(n+1)/2 for counting triangular numbers!

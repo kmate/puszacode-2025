@@ -16,5 +16,3 @@ countVowels("") → 0
 
 **Your task:**
 Create the method and count vowels in "Beautiful December". The unlock code is this number.
-
-**Hint:** Convert to lowercase first, then check each character!

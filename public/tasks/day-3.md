@@ -17,5 +17,3 @@ rotateArray(new int[]{7, 8, 9}, 5) → [8, 9, 7]
 
 **Your task:**
 Create the method and rotate `new int[]{5, 10, 15, 20, 25, 30}` by 4 positions. Return the element at index 2 of the rotated array as the unlock code.
-
-**Hint:** Use modulo (k % length) to handle rotations larger than array size, then use array copying or reversal technique!

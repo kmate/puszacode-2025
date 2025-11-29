@@ -24,5 +24,3 @@ totalNameLength(null) // → -1                  // null
 
 **Your task:**
 Implement the method and compute `totalNameLength("Rudolf The Red Nosed Reindeer")`. The unlock code is this resulting number.
-
-**Hint:** Use `split` on whitespace, then for each part apply a letters-only filter before counting.
