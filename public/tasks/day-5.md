@@ -16,4 +16,4 @@ countWords("") → 0
 **Your task:**
 Create the method and count words in "Merry Christmas Happy Coding". The unlock code is this number.
 
-**Hint:** Use ``trim()`` and `split()`, then handle edge cases!
+**Hint:** Use `trim()` and `split()`, then handle edge cases!

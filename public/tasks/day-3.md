@@ -32,6 +32,6 @@ analyzeDigits(2531)
 
 
 **Your task:**
-Create the method and compute ``analyzeDigits(84267)``. The unlock code is this result.
+Create the method and compute `analyzeDigits(84267)`. The unlock code is this result.
 
 **Hint:** Convert to string to iterate digits, track position counter, handle sign at the end!
