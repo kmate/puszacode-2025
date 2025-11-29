@@ -1,4 +1,4 @@
-# Day 4 — Weighted Array Score
+# Weighted Array Score
 
 Calculate a weighted score from an array! 📊
 

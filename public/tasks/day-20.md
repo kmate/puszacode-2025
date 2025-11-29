@@ -1,4 +1,4 @@
-# Day 20 — Lucas Numbers
+# Lucas Numbers
 
 Calculate Lucas sequence! 🌀
 

@@ -1,4 +1,4 @@
-# Day 17 — Consecutive Sequence
+# Consecutive Sequence
 
 Find longest consecutive numbers! 🧹
 

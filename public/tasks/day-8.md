@@ -1,4 +1,4 @@
-# Day 8 — Consonant Counter
+# Consonant Counter
 
 Let's count characters! 🔤
 

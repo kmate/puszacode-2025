@@ -1,4 +1,4 @@
-# Day 12 — Index Finder
+# Index Finder
 
 Find all occurrences! 🔢
 

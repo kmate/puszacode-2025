@@ -1,4 +1,4 @@
-# Day 24 — Missing Numbers Sum
+# Missing Numbers Sum
 
 Find sum of missing numbers! 🎯
 

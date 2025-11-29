@@ -1,4 +1,4 @@
-# Day 11 — Array Transformation Chain
+# Array Transformation Chain
 
 Let's chain multiple operations! 🎯
 

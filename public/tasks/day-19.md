@@ -1,4 +1,4 @@
-# Day 19 — Twin Prime Counter
+# Twin Prime Counter
 
 Count twin prime pairs! 🔢
 

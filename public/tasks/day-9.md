@@ -1,4 +1,4 @@
-# Day 9 — Case Swapper
+# Case Swapper
 
 Time to flip things around! 🔄
 

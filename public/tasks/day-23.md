@@ -1,4 +1,4 @@
-# Day 23 — Array Rotation Advanced
+# Array Rotation Advanced
 
 Rotate in both directions! ✂️
 

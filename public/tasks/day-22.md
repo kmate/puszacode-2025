@@ -1,4 +1,4 @@
-# Day 22 — Anagram Groups
+# Anagram Groups
 
 Count anagram groups! 🔤
 

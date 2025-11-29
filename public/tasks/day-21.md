@@ -1,4 +1,4 @@
-# Day 21 — Spiral Matrix
+# Spiral Matrix
 
 Sum spiral elements! 📦
 

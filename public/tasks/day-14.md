@@ -1,4 +1,4 @@
-# Day 14 — Palindrome Length
+# Palindrome Length
 
 Find the longest palindrome! 🔄
 

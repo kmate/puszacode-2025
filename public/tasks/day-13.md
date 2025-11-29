@@ -1,4 +1,4 @@
-# Day 13 — Power Tower
+# Power Tower
 
 Calculate nested powers! 🎲
 

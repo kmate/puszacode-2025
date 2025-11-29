@@ -1,4 +1,4 @@
-# Day 18 — Pig Latin Converter
+# Pig Latin Converter
 
 Transform to Pig Latin! ✍️
 

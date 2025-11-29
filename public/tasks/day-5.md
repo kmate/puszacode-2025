@@ -1,4 +1,4 @@
-# Day 5 — Word Counter
+# Word Counter
 
 Let's explore strings! 📝
 

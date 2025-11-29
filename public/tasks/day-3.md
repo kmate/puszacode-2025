@@ -1,4 +1,4 @@
-# Day 3 — Digit Pattern Analyzer
+# Digit Pattern Analyzer
 
 Let's analyze number patterns! 🎯
 

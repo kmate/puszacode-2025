@@ -1,4 +1,4 @@
-# Day 16 — Statistical Mode
+# Statistical Mode
 
 Find the mode(most frequent value)! 📊
 

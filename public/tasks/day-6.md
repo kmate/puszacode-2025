@@ -1,4 +1,4 @@
-# Day 6 — Pattern Generator
+# Pattern Generator
 
 Time for string manipulation! 🔄
 

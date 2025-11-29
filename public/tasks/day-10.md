@@ -1,4 +1,4 @@
-# Day 10 — Second Maximum
+# Second Maximum
 
 Array exploration continues! 📈
 

@@ -1,4 +1,4 @@
-# Day 2 — Prime-Even Fusion Calculator
+# Prime-Even Fusion Calculator
 
 Let's build a multi-step data cruncher! ✨
 

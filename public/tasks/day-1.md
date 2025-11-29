@@ -1,4 +1,4 @@
-# Day 1 — General Name Parts Length
+# General Name Parts Length
 
 Welcome to your coding adventure! 🎄
 

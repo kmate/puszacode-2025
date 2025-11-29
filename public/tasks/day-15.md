@@ -1,4 +1,4 @@
-# Day 15 — Collatz Conjecture
+# Collatz Conjecture
 
 Explore the Collatz sequence! 🎮
 

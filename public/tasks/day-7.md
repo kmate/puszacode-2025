@@ -1,4 +1,4 @@
-# Day 7 — Array Statistics
+# Array Statistics
 
 Welcome to arrays! 📚
 
