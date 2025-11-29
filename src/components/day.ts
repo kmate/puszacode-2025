@@ -1,11 +1,20 @@
 import { verifyCode } from '../utils/codeValidation';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-java';
+import 'prismjs/themes/prism-tomorrow.css';
 
 let codesCache: Record<string, string> | null = null;
+
+function getBase(): string {
+  // Use relative paths so deployment under subpaths (e.g., GitHub Pages) works without import.meta
+  return '';
+}
 
 async function loadCodes(): Promise<Record<string, string>> {
   if (codesCache) return codesCache as Record<string, string>;
   try {
-    const res = await fetch('/codes.json');
+  const base = getBase();
+  const res = await fetch(`${base}codes.json`);
     if (!res.ok) throw new Error('codes.json missing');
     codesCache = await res.json() as Record<string, string>;
     return codesCache as Record<string, string>;
@@ -18,7 +27,29 @@ async function loadCodes(): Promise<Record<string, string>> {
 
 function mdToHtml(md: string): string {
   // Minimal Markdown converter for headings, bold, italics, code, lists, inline code
-  let html = md
+  // IMPORTANT: Process code blocks BEFORE inline code to avoid conflicts
+  
+  // Code blocks with language support (e.g., ```java) - process FIRST
+  let html = md.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
+    const language = lang || 'java'; // Default to Java
+    const trimmedCode = code.trim();
+    
+    try {
+      // Highlight with Prism
+      const highlighted = Prism.highlight(
+        trimmedCode,
+        Prism.languages[language] || Prism.languages.java,
+        language
+      );
+      return `<pre class="language-${language}"><code class="language-${language}">${highlighted}</code></pre>`;
+    } catch (e) {
+      // Fallback if highlighting fails
+      return `<pre class="language-${language}"><code class="language-${language}">${trimmedCode}</code></pre>`;
+    }
+  });
+  
+  // Now process the rest of markdown (headings, bold, inline code, lists)
+  html = html
     .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
     .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
     .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>')
@@ -26,11 +57,10 @@ function mdToHtml(md: string): string {
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/^\s*[-*]\s+(.*)$/gm, '<li>$1</li>');
+  
   // Wrap consecutive list items with <ul>
-  // Avoid the 's' (dotAll) flag for broader compatibility; use [\s\S]
   html = html.replace(/((<li>[\s\S]*?<\/li>\n?)+)/g, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`);
-  // Code blocks
-  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  
   // Paragraphs
   html = html.replace(/^(?!<h\d|<ul|<pre|<li)(.+)$/gm, '<p>$1</p>');
   return html;
@@ -54,7 +84,8 @@ export function renderDay(dayNumber: number): HTMLElement {
   container.appendChild(content);
 
   // Load markdown for this day (Vite serves /public at root, omit /public prefix)
-  const taskUrl = `/tasks/day-${dayNumber}.md`;
+  const base = getBase();
+  const taskUrl = `${base}tasks/day-${dayNumber}.md`;
   fetch(taskUrl)
     .then(r => r.ok ? r.text() : Promise.reject(new Error('Task not found')))
     .then(md => {
@@ -98,7 +129,13 @@ export function renderDay(dayNumber: number): HTMLElement {
     status.textContent = 'Door already unlocked.';
     openBtn.style.display = 'none';
     codeInput.style.display = 'none';
-    loadImage();
+    // Load expected hash and show image by hash to avoid missing fallback
+    loadCodes().then(c => {
+      const expectedHash = c[String(dayNumber)] || null;
+      loadImage(expectedHash);
+    }).catch(() => {
+      loadImage();
+    });
   }
 
   let isUnlocked = unlocked;
@@ -112,8 +149,8 @@ export function renderDay(dayNumber: number): HTMLElement {
     }
     status.textContent = 'Checking…';
     status.className = 'code-status';
-    const codes = await loadCodes();
-    const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
+  const codes = await loadCodes();
+  const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
     if (ok) {
       status.textContent = devMode ? 'Dev mode: auto-unlocked.' : 'Code accepted! Door unlocked.';
       status.className = 'code-status code-status--success';
@@ -122,8 +159,20 @@ export function renderDay(dayNumber: number): HTMLElement {
       }
       isUnlocked = true;
       codeInput.disabled = true;
-      openBtn.textContent = 'Open Door';
-      loadImage();
+      // Remove the button once unlocked to match already-unlocked state
+      openBtn.style.display = 'none';
+      // Compute hash of the entered code to select image by hash filename
+      let enteredHash: string | null = null;
+      try {
+        // Use Web Crypto via helper to get sha256 hex
+        const { sha256Hex } = await import('../utils/codeValidation');
+        enteredHash = await sha256Hex(value);
+      } catch (e) {
+        console.warn('Failed to compute hash from entered code, falling back to expected hash.', e);
+      }
+      // If computing entered hash failed, use expected hash from codes.json
+      const hashForImage = enteredHash || codes[String(dayNumber)] || null;
+      loadImage(hashForImage);
     } else {
       status.textContent = 'Incorrect code.';
       status.className = 'code-status code-status--error';
@@ -133,11 +182,23 @@ export function renderDay(dayNumber: number): HTMLElement {
     if (e.key === 'Enter' && !isUnlocked) attemptUnlock();
   });
 
-  function loadImage() {
+  function loadImage(hash?: string | null) {
     const img = document.createElement('img');
     img.alt = `Unlocked image for day ${dayNumber}`;
-    img.src = `/assets/day-${dayNumber}.svg`;
-    img.onerror = () => { img.style.display = 'none'; status.textContent += ' (image missing)'; };
+    // Prefer hash-based filenames to prevent guessing. Fallback to day-N.svg if missing
+  const base = getBase();
+  const srcByHash = hash ? `${base}assets/day-${dayNumber}-${hash}.svg` : '';
+  img.src = srcByHash || `${base}assets/day-${dayNumber}.svg`;
+    img.onerror = () => {
+      // If hash image missing, try fallback to day-N.svg once
+      if (srcByHash) {
+        img.onerror = () => { img.style.display = 'none'; status.textContent += ' (image missing)'; };
+  img.src = `${base}assets/day-${dayNumber}.svg`;
+      } else {
+        img.style.display = 'none';
+        status.textContent += ' (image missing)';
+      }
+    };
     reveal.innerHTML = '';
     reveal.appendChild(img);
     reveal.style.display = 'flex';
@@ -146,8 +207,6 @@ export function renderDay(dayNumber: number): HTMLElement {
   openBtn.addEventListener('click', () => {
     if (!isUnlocked) {
       attemptUnlock();
-    } else {
-      alert(`Treasure for Day ${dayNumber}!`);
     }
   });
 
