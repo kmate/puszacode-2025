@@ -68,7 +68,7 @@ export function renderDay(dayNumber: number): HTMLElement {
       const expectedHash = c[String(dayNumber)] || null;
       loadImage(expectedHash);
     }).catch(() => {
-      loadImage();
+      // No fallback: if codes fail to load, don't attempt non-hash assets
     });
   }
 
@@ -120,22 +120,26 @@ export function renderDay(dayNumber: number): HTMLElement {
   });
 
   function loadImage(hash?: string | null) {
-    const img = el('img') as HTMLImageElement;
-    img.alt = `Unlocked image for day ${dayNumber}`;
     const srcByHash = hash ? `${getBase()}assets/day-${dayNumber}-${hash}.svg` : '';
-    img.src = srcByHash || `${getBase()}assets/day-${dayNumber}.svg`;
-    img.onerror = () => {
-      // If hash image missing, try fallback to day-N.svg once
-      if (srcByHash) {
-        img.onerror = () => { img.style.display = 'none'; status.textContent += ' (image missing)'; };
-        img.src = `${getBase()}assets/day-${dayNumber}.svg`;
-      } else {
-        img.style.display = 'none';
-        status.textContent += ' (image missing)';
-      }
-    };
     reveal.innerHTML = '';
-    reveal.appendChild(img);
+    if (!srcByHash) {
+      status.textContent += ' (image missing)';
+      reveal.style.display = 'flex';
+      return;
+    }
+    // Use <object> for SVG so embedded raster <image> loads correctly in all browsers
+    const obj = document.createElement('object');
+    obj.type = 'image/svg+xml';
+    obj.data = srcByHash;
+    obj.setAttribute('aria-label', `Unlocked image for day ${dayNumber}`);
+    obj.onerror = () => {
+      status.textContent += ' (image missing)';
+      obj.style.display = 'none';
+    };
+    // Optional: size containment
+    (obj as any).style.maxWidth = '100%';
+    (obj as any).style.borderRadius = '12px';
+    reveal.appendChild(obj);
     reveal.style.display = 'flex';
   }
 
