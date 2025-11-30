@@ -287,17 +287,37 @@ button#open-door[disabled] {
 
 /* Dev banner */
 .dev-banner {
-    margin: 0 0 12px;
-    padding: 6px 12px;
-    font-size: 13px;
+    margin: 0 0 14px;
+    padding: 8px 14px;
+    font-size: 14px;
     font-family: "Cormorant Garamond", serif;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
     color: var(--cream);
-    background: linear-gradient(90deg, rgba(200,162,74,0.35), rgba(200,162,74,0.15));
+    background: linear-gradient(90deg, rgba(200,162,74,0.45), rgba(200,162,74,0.18));
     border: 1px solid var(--gold);
-    border-radius: 10px;
-    text-align: center;
-    letter-spacing: 0.5px;
+    border-radius: 12px;
+    letter-spacing: 0.6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
 }
+
+.dev-banner .dev-exit-btn {
+    padding: 6px 12px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: linear-gradient(180deg, #9c3232, #7a2626);
+    color: var(--cream);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 0 rgba(200,162,74,0.25), 0 4px 12px rgba(0,0,0,0.25);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.dev-banner .dev-exit-btn:hover { transform: translateY(-1px); box-shadow: 0 3px 0 rgba(200,162,74,0.30), 0 8px 18px rgba(0,0,0,0.28); }
+.dev-banner .dev-exit-btn:active { transform: translateY(0); }
 
 /* Syntax highlighting for code blocks */
 #content pre {
