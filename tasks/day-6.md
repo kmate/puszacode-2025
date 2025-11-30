@@ -1,32 +1,27 @@
-# Prime-Even Fusion Calculator
+# Binary String Transformer
 
-Let's build a multi-step data cruncher! ✨
+Time to work with binary representations! 🔢
 
-Write a method `complexCalculate(int[] nums)` that performs these operations in order:
-1. Remove all negative numbers.
-2. Collect all prime numbers (after removal) and compute their sum (S).
-3. Collect all DISTINCT even numbers and compute their product (P). If there are no even numbers, P = 1.
-4. Find the maximum number in the filtered list. Compute the sum of its decimal digits (D).
-5. Return: (S * P) - D.
-6. If fewer than 2 numbers remain after removing negatives, return -1.
-
-Definitions:
-- Prime: >1 and divisible only by 1 and itself.
-- Distinct even numbers: each counted once regardless of duplicates.
+Write a method `transformBinary(String binary)` that:
+1. Takes a binary string (containing only '0' and '1')
+2. Converts it to decimal
+3. Counts how many '1' bits are in the binary representation
+4. Multiplies the decimal value by the count of '1' bits
+5. Returns the result as an integer
 
 **Examples:**
 ```java
-complexCalculate(new int[]{7, 12, 5});
-// S = 7 + 5 = 12, Distinct evens = {12} → P = 12
-// Max = 12 → D = 1 + 2 = 3, Result = (12 * 12) - 3 = 141
-complexCalculate(new int[]{2, 2, 3, 4});
-// Primes: 2, 2, 3 → S = 7, Distinct evens: {2, 4} → P = 8
-// Max = 4 → D = 4, Result = (7 * 8) - 4 = 52
-complexCalculate(new int[]{-5, 11, 11, 8});
-// Filter: {11, 11, 8}, Primes: 11 + 11 = 22 → S = 22
-// Distinct evens: {8} → P = 8, Max = 11 → D = 2
-// Result: (22 * 8) - 2 = 174
+transformBinary("1010") → 20
+// Decimal: 10, Count of '1's: 2, Result: 10 * 2 = 20
+transformBinary("1111") → 60
+// Decimal: 15, Count of '1's: 4, Result: 15 * 4 = 60
+transformBinary("10001") → 34
+// Decimal: 17, Count of '1's: 2, Result: 17 * 2 = 34
 ```
 
+Now write a method `sumTransformed(String[] binaries)` that:
+- Applies `transformBinary` to each string in the array
+- Returns the sum of all transformed values
+
 **Your task:**
-Compute `complexCalculate(new int[]{7, 12, 12, 5, -3, 18, 21, 8})`. The unlock code is the computed result.
+Compute `sumTransformed(new String[]{"1101", "10110", "11001", "101"})`. The unlock code is the computed result.
