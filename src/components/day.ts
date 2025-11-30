@@ -1,128 +1,22 @@
-import { verifyCode } from '../utils/codeValidation';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-java';
-import 'prismjs/themes/prism-tomorrow.css';
-
-let codesCache: Record<string, string> | null = null;
-
-function getBase(): string {
-  // Use relative paths so deployment under subpaths (e.g., GitHub Pages) works without import.meta
-  return '';
-}
-
-async function loadCodes(): Promise<Record<string, string>> {
-  if (codesCache) return codesCache as Record<string, string>;
-  try {
-  const base = getBase();
-  const res = await fetch(`${base}codes.json`);
-    if (!res.ok) throw new Error('codes.json missing');
-    codesCache = await res.json() as Record<string, string>;
-    return codesCache as Record<string, string>;
-  } catch (e) {
-    console.warn('Failed to load codes.json', e);
-    codesCache = {};
-    return codesCache as Record<string, string>;
-  }
-}
-
-function mdToHtml(md: string): string {
-  // Minimal Markdown converter for headings, bold, italics, code, lists, inline code
-  // IMPORTANT: Process code blocks BEFORE inline code to avoid conflicts
-  
-  // Code blocks with language support (e.g., ```java) - process FIRST
-  let html = md.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
-    const language = lang || 'java'; // Default to Java
-    const trimmedCode = code.trim();
-    
-    try {
-      // Highlight with Prism
-      const highlighted = Prism.highlight(
-        trimmedCode,
-        Prism.languages[language] || Prism.languages.java,
-        language
-      );
-      return `<pre class="language-${language}"><code class="language-${language}">${highlighted}</code></pre>`;
-    } catch (e) {
-      // Fallback if highlighting fails
-      return `<pre class="language-${language}"><code class="language-${language}">${trimmedCode}</code></pre>`;
-    }
-  });
-  
-  // Now process the rest of markdown (headings, bold, inline code, lists)
-  html = html
-    .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
-    .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
-    .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/^\s*[-*]\s+(.*)$/gm, '<li>$1</li>');
-  
-  // Wrap consecutive list items with <ul>
-  html = html.replace(/((<li>[\s\S]*?<\/li>\n?)+)/g, (m) => `<ul>${m.replace(/\n/g, '')}</ul>`);
-  
-  // Handle paragraphs: wrap consecutive non-tag lines in a single <p> tag
-  // Split by double newlines (blank line = paragraph break in markdown)
-  const blocks = html.split(/\n\n+/);
-  html = blocks.map(block => {
-    const trimmed = block.trim();
-    // If block starts with a tag, leave it as-is
-    if (/^<(h\d|ul|pre|li|strong)/.test(trimmed)) {
-      return trimmed;
-    }
-    // Otherwise wrap the whole block in a single <p> (preserve internal newlines as <br>)
-    return trimmed ? `<p>${trimmed.replace(/\n/g, '<br>')}</p>` : '';
-  }).filter(b => b).join('\n');
-  
-  return html;
-}
+import { verifyCode, sha256Hex } from '../utils/codeValidation';
+import { mdToHtml } from '../utils/markdown';
+import { loadCodes, getBase } from '../utils/codes';
+import { isDevMode } from '../utils/devMode';
+import { buildDevBanner } from './devBanner';
+import { el, button } from '../utils/dom';
 
 export function renderDay(dayNumber: number): HTMLElement {
-  // Outer wrapper to allow dev banner to sit outside the styled day container
-  const outer = document.createElement('div');
-  outer.className = 'day-view-wrapper';
-
-  const container = document.createElement('div');
-  container.className = 'day-container';
-
-  // Dev backdoor: check for ?dev=1 query parameter to bypass verification
-  const urlParams = new URLSearchParams(window.location.search);
-  const devMode = urlParams.get('dev') === '1';
-
-  // Dev banner above the title and outside the styled container
-  if (devMode) {
-    const devBanner = document.createElement('div');
-    devBanner.className = 'dev-banner';
-    const bannerText = document.createElement('span');
-    bannerText.textContent = 'Dev tools active';
-    const exitBtn = document.createElement('button');
-    exitBtn.type = 'button';
-    exitBtn.className = 'dev-exit-btn';
-    exitBtn.textContent = 'Exit dev mode';
-    exitBtn.addEventListener('click', () => {
-      const params = new URLSearchParams(window.location.search);
-      params.delete('dev');
-      const newSearch = params.toString();
-      const newUrl = window.location.origin + window.location.pathname + (newSearch ? ('?' + newSearch) : '') + window.location.hash;
-      window.location.href = newUrl;
-    });
-    devBanner.appendChild(bannerText);
-    devBanner.appendChild(exitBtn);
-    outer.appendChild(devBanner);
-  }
-
-  const h1 = document.createElement('h1');
-  h1.innerHTML = `Day <span id="day-number">${dayNumber}</span>`;
+  const devMode = isDevMode();
+  const outer = el('div', { className: 'day-view-wrapper' });
+  if (devMode) outer.appendChild(buildDevBanner());
+  const container = el('div', { className: 'day-container' });
+  const h1 = el('h1', { html: `Day <span id="day-number">${dayNumber}</span>` });
   container.appendChild(h1);
-
-  const content = document.createElement('div');
-  content.id = 'content';
-  content.textContent = 'Loading task…';
+  const content = el('div', { id: 'content', textContent: 'Loading task…' });
   container.appendChild(content);
 
   // Load markdown for this day (Vite serves /public at root, omit /public prefix)
-  const base = getBase();
-  const taskUrl = `${base}tasks/day-${dayNumber}.md`;
+  const taskUrl = `${getBase()}tasks/day-${dayNumber}.md`;
   fetch(taskUrl)
     .then(r => r.ok ? r.text() : Promise.reject(new Error('Task not found')))
     .then(md => {
@@ -133,31 +27,21 @@ export function renderDay(dayNumber: number): HTMLElement {
     });
 
   // Code input + verification
-  const codeContainer = document.createElement('div');
-  codeContainer.className = 'code-input-container';
-
-  const codeInput = document.createElement('input');
+  const codeContainer = el('div', { className: 'code-input-container' });
+  const codeInput = el('input', { className: 'code-input' }) as HTMLInputElement;
   codeInput.type = 'text';
   codeInput.placeholder = 'Enter unlock code';
-  codeInput.className = 'code-input';
   codeContainer.appendChild(codeInput);
-
-  const status = document.createElement('div');
-  status.className = 'code-status';
+  const status = el('div', { className: 'code-status' });
   codeContainer.appendChild(status);
-
-  const openBtn = document.createElement('button');
-  openBtn.id = 'open-door';
-  openBtn.textContent = 'Unlock Door';
-  openBtn.disabled = false; // allow click to attempt unlock
+  const openBtn = button('Unlock Door', undefined, 'open-door');
+  openBtn.disabled = false;
   codeContainer.appendChild(openBtn);
   container.appendChild(codeContainer);
 
   // Determine unlocked state from localStorage (dev mode still honors stored state so you can re-lock)
   const unlocked = localStorage.getItem(`day-unlocked-${dayNumber}`) === '1';
-
-  const reveal = document.createElement('div');
-  reveal.className = 'door-reveal';
+  const reveal = el('div', { className: 'door-reveal' });
   container.appendChild(reveal);
   if (!unlocked) {
     reveal.style.display = 'none';
@@ -166,9 +50,7 @@ export function renderDay(dayNumber: number): HTMLElement {
     if (!devMode) return;
     // Avoid duplicating
     if (codeContainer.querySelector('.lock-btn')) return;
-    const lockBtn = document.createElement('button');
-    lockBtn.textContent = '🔒 Lock';
-    lockBtn.className = 'lock-btn';
+    const lockBtn = button('🔒 Lock', 'lock-btn');
     lockBtn.addEventListener('click', () => {
       localStorage.removeItem(`day-unlocked-${dayNumber}`);
       window.location.reload();
@@ -201,8 +83,8 @@ export function renderDay(dayNumber: number): HTMLElement {
     }
     status.textContent = 'Checking…';
     status.className = 'code-status';
-  const codes = await loadCodes();
-  const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
+    const codes = await loadCodes();
+    const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
     if (ok) {
       status.textContent = devMode ? 'Dev mode: unlocked (test) 🍫' : '🍫 Here\'s where you can find your reward!';
       status.className = 'code-status code-status--success';
@@ -216,8 +98,7 @@ export function renderDay(dayNumber: number): HTMLElement {
       // Compute hash of the entered code to select image by hash filename
       let enteredHash: string | null = null;
       try {
-        // Use Web Crypto via helper to get sha256 hex
-        const { sha256Hex } = await import('../utils/codeValidation');
+        // Use Web Crypto helper (statically imported) to get sha256 hex
         enteredHash = await sha256Hex(value);
       } catch (e) {
         console.warn('Failed to compute hash from entered code, falling back to expected hash.', e);
@@ -239,17 +120,15 @@ export function renderDay(dayNumber: number): HTMLElement {
   });
 
   function loadImage(hash?: string | null) {
-    const img = document.createElement('img');
+    const img = el('img') as HTMLImageElement;
     img.alt = `Unlocked image for day ${dayNumber}`;
-    // Prefer hash-based filenames to prevent guessing. Fallback to day-N.svg if missing
-  const base = getBase();
-  const srcByHash = hash ? `${base}assets/day-${dayNumber}-${hash}.svg` : '';
-  img.src = srcByHash || `${base}assets/day-${dayNumber}.svg`;
+    const srcByHash = hash ? `${getBase()}assets/day-${dayNumber}-${hash}.svg` : '';
+    img.src = srcByHash || `${getBase()}assets/day-${dayNumber}.svg`;
     img.onerror = () => {
       // If hash image missing, try fallback to day-N.svg once
       if (srcByHash) {
         img.onerror = () => { img.style.display = 'none'; status.textContent += ' (image missing)'; };
-  img.src = `${base}assets/day-${dayNumber}.svg`;
+        img.src = `${getBase()}assets/day-${dayNumber}.svg`;
       } else {
         img.style.display = 'none';
         status.textContent += ' (image missing)';
