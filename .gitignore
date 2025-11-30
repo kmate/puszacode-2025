@@ -1,0 +1,53 @@
+# Node / TypeScript / Vite standard ignores
+node_modules/
+
+# Build output (Vite)
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Dependency archives
+*.tgz
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# TypeScript incremental info
+*.tsbuildinfo
+
+# Env files
+.env
+.env.*
+
+# OS / misc
+.DS_Store
+Thumbs.db
+
+# Testing / coverage
+coverage/
+
+# Cache directories
+.cache/
+.eslintcache
+
+# Static hosts (if used later)
+.vercel
+.netlify
+
+# Optional lock removal (keep if you want reproducibility)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# GitHub Pages artifacts (if generated separately)
+# docs/
+
+# Exclude public assets variants that may be generated
+# public/assets/generated/
