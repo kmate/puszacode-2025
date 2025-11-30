@@ -140,6 +140,20 @@ export function renderDay(dayNumber: number): HTMLElement {
     status.textContent = '🍫 You already ate this chocolate!';
     openBtn.style.display = 'none';
     codeInput.style.display = 'none';
+    
+    // Dev mode: add Lock button to re-lock this day
+    if (devMode) {
+      const lockBtn = document.createElement('button');
+      lockBtn.textContent = '🔒 Lock';
+      lockBtn.className = 'lock-btn';
+      lockBtn.style.marginTop = '10px';
+      lockBtn.addEventListener('click', () => {
+        localStorage.removeItem(`day-unlocked-${dayNumber}`);
+        window.location.reload();
+      });
+      codeContainer.appendChild(lockBtn);
+    }
+    
     // Load expected hash and show image by hash to avoid missing fallback
     loadCodes().then(c => {
       const expectedHash = c[String(dayNumber)] || null;

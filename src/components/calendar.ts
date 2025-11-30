@@ -20,6 +20,8 @@ export class Calendar {
     }
 
     renderCalendar(): HTMLElement {
+        const wrapper = document.createElement('div');
+        
         const calendarContainer = document.createElement('div');
         calendarContainer.className = 'calendar';
 
@@ -27,6 +29,28 @@ export class Calendar {
         const urlParams = new URLSearchParams(window.location.search);
         const devMode = urlParams.get('dev') === '1';
         const simulatedDay = urlParams.get('day');
+        
+        // Dev mode: add Lock All button at the top
+        if (devMode) {
+            const lockAllBtn = document.createElement('button');
+            lockAllBtn.textContent = '🔒 Lock All Days';
+            lockAllBtn.className = 'lock-all-btn';
+            lockAllBtn.style.cssText = 'margin: 20px auto; display: block; padding: 10px 20px; font-size: 16px; cursor: pointer;';
+            lockAllBtn.addEventListener('click', () => {
+                // Remove all day-unlocked-* entries from localStorage
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('day-unlocked-')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                alert('All days locked! Refreshing...');
+                window.location.reload();
+            });
+            wrapper.appendChild(lockAllBtn);
+        }
         
         // Determine current day for visibility
         const now = new Date();
@@ -61,7 +85,8 @@ export class Calendar {
             calendarContainer.appendChild(dayElement);
         });
 
-        return calendarContainer;
+            wrapper.appendChild(calendarContainer);
+            return wrapper;
     }
 
     handleDayClick(day: { day: number }) {
