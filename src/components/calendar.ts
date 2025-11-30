@@ -70,7 +70,9 @@ export class Calendar {
             const devBanner = document.createElement('div');
             devBanner.className = 'dev-banner';
             devBanner.textContent = 'Dev tools active';
-            wrapper.insertBefore(devBanner, calendarContainer);
+            // calendarContainer is not yet appended; insertBefore would throw.
+            // Append banner now; it will appear above once calendarContainer is appended next.
+            wrapper.appendChild(devBanner);
         }
 
         wrapper.appendChild(calendarContainer);
