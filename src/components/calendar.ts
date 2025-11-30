@@ -65,13 +65,35 @@ export class Calendar {
             calendarContainer.appendChild(dayElement);
         });
 
+        // Dev banner at top (non-intrusive) if dev mode
+        if (devMode) {
+            const devBanner = document.createElement('div');
+            devBanner.className = 'dev-banner';
+            devBanner.textContent = 'Dev tools active';
+            wrapper.insertBefore(devBanner, calendarContainer);
+        }
+
         wrapper.appendChild(calendarContainer);
 
-        // Dev mode: conditionally append Lock All button at bottom if there is at least one unlocked day
+        // Dev mode: append action buttons (Unlock All / Lock All) at bottom based on state
         if (devMode) {
             let anyUnlocked = false;
+            let anyLocked = false;
             for (let i = 1; i <= 24; i++) {
-                if (localStorage.getItem(`day-unlocked-${i}`) === '1') { anyUnlocked = true; break; }
+                const isUnlocked = localStorage.getItem(`day-unlocked-${i}`) === '1';
+                if (isUnlocked) anyUnlocked = true; else anyLocked = true;
+                if (anyUnlocked && anyLocked) break; // early exit
+            }
+            if (anyLocked) {
+                const unlockAllBtn = document.createElement('button');
+                unlockAllBtn.textContent = '🔓 Unlock All Days';
+                unlockAllBtn.className = 'unlock-all-btn';
+                unlockAllBtn.addEventListener('click', () => {
+                    for (let i = 1; i <= 24; i++) localStorage.setItem(`day-unlocked-${i}`, '1');
+                    unlockAllBtn.textContent = '✅ All Unlocked – refreshing…';
+                    setTimeout(() => window.location.reload(), 600);
+                });
+                wrapper.appendChild(unlockAllBtn);
             }
             if (anyUnlocked) {
                 const lockAllBtn = document.createElement('button');

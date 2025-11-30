@@ -261,6 +261,44 @@ button#open-door[disabled] {
     margin-right: auto;
 }
 
+/* Unlock All button variant */
+.unlock-all-btn {
+    display: block;
+    margin: 12px auto 0;
+    padding: 8px 14px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    background: linear-gradient(180deg, #c8a24a, #9c7d32);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(200,162,74,0.25), 0 8px 18px rgba(0,0,0,0.18);
+    transition: transform 140ms ease, box-shadow 140ms ease, background 160ms ease;
+}
+.unlock-all-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 rgba(200,162,74,0.30), 0 14px 26px rgba(0,0,0,0.22);
+}
+.unlock-all-btn:active {
+    transform: translateY(0);
+}
+
+/* Dev banner */
+.dev-banner {
+    margin: 0 0 12px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-family: "Cormorant Garamond", serif;
+    color: var(--cream);
+    background: linear-gradient(90deg, rgba(200,162,74,0.35), rgba(200,162,74,0.15));
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
 /* Syntax highlighting for code blocks */
 #content pre {
     margin: 16px 0;
