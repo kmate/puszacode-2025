@@ -89,6 +89,28 @@ export function renderDay(dayNumber: number): HTMLElement {
   h1.innerHTML = `Day <span id="day-number">${dayNumber}</span>`;
   container.appendChild(h1);
 
+  // Dev banner also shown on day pages
+  if (devMode) {
+    const devBanner = document.createElement('div');
+    devBanner.className = 'dev-banner';
+    const bannerText = document.createElement('span');
+    bannerText.textContent = 'Dev tools active';
+    const exitBtn = document.createElement('button');
+    exitBtn.type = 'button';
+    exitBtn.className = 'dev-exit-btn';
+    exitBtn.textContent = 'Exit dev mode';
+    exitBtn.addEventListener('click', () => {
+      const params = new URLSearchParams(window.location.search);
+      params.delete('dev');
+      const newSearch = params.toString();
+      const newUrl = window.location.origin + window.location.pathname + (newSearch ? ('?' + newSearch) : '') + window.location.hash;
+      window.location.href = newUrl;
+    });
+    devBanner.appendChild(bannerText);
+    devBanner.appendChild(exitBtn);
+    container.appendChild(devBanner);
+  }
+
   const content = document.createElement('div');
   content.id = 'content';
   content.textContent = 'Loading task…';
