@@ -287,7 +287,7 @@ button#open-door[disabled] {
 
 /* Dev banner */
 .dev-banner {
-    margin: 0 auto 14px;
+    margin: 0 0 14px; /* rely on container padding for horizontal spacing */
     padding: 6px 12px;
     font-size: 13px;
     font-family: "Cormorant Garamond", serif;
@@ -295,7 +295,8 @@ button#open-door[disabled] {
     gap: 10px;
     align-items: center;
     justify-content: center;
-    max-width: 340px;
+    width: 100%;
+    box-sizing: border-box;
     color: var(--cream);
     background: linear-gradient(90deg, rgba(200,162,74,0.40), rgba(200,162,74,0.16));
     border: 1px solid var(--gold);
