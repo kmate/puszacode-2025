@@ -127,8 +127,8 @@ export function renderDay(dayNumber: number): HTMLElement {
   codeContainer.appendChild(openBtn);
   container.appendChild(codeContainer);
 
-  // In dev mode, don't check localStorage (test fresh each time)
-  const unlocked = devMode ? false : localStorage.getItem(`day-unlocked-${dayNumber}`) === '1';
+  // Determine unlocked state from localStorage (dev mode still honors stored state so you can re-lock)
+  const unlocked = localStorage.getItem(`day-unlocked-${dayNumber}`) === '1';
 
   const reveal = document.createElement('div');
   reveal.className = 'door-reveal';
@@ -136,24 +136,25 @@ export function renderDay(dayNumber: number): HTMLElement {
   if (!unlocked) {
     reveal.style.display = 'none';
   }
+  function addLockButton() {
+    if (!devMode) return;
+    // Avoid duplicating
+    if (codeContainer.querySelector('.lock-btn')) return;
+    const lockBtn = document.createElement('button');
+    lockBtn.textContent = '🔒 Lock';
+    lockBtn.className = 'lock-btn';
+    lockBtn.addEventListener('click', () => {
+      localStorage.removeItem(`day-unlocked-${dayNumber}`);
+      window.location.reload();
+    });
+    codeContainer.appendChild(lockBtn);
+  }
+
   if (unlocked) {
     status.textContent = '🍫 You already ate this chocolate!';
     openBtn.style.display = 'none';
     codeInput.style.display = 'none';
-    
-    // Dev mode: add Lock button to re-lock this day
-    if (devMode) {
-      const lockBtn = document.createElement('button');
-      lockBtn.textContent = '🔒 Lock';
-      lockBtn.className = 'lock-btn';
-      lockBtn.style.marginTop = '10px';
-      lockBtn.addEventListener('click', () => {
-        localStorage.removeItem(`day-unlocked-${dayNumber}`);
-        window.location.reload();
-      });
-      codeContainer.appendChild(lockBtn);
-    }
-    
+    addLockButton();
     // Load expected hash and show image by hash to avoid missing fallback
     loadCodes().then(c => {
       const expectedHash = c[String(dayNumber)] || null;
@@ -177,15 +178,15 @@ export function renderDay(dayNumber: number): HTMLElement {
   const codes = await loadCodes();
   const ok = devMode ? true : await verifyCode(dayNumber, value, codes);
     if (ok) {
-      status.textContent = devMode ? 'Dev mode: instant munch 🍫' : '🍫 Here\'s where you can find your reward!';
+      status.textContent = devMode ? 'Dev mode: unlocked (test) 🍫' : '🍫 Here\'s where you can find your reward!';
       status.className = 'code-status code-status--success';
-      if (!devMode) {
-        localStorage.setItem(`day-unlocked-${dayNumber}`, '1');
-      }
+      // Persist unlocked state even in dev mode so lock button works consistently
+      localStorage.setItem(`day-unlocked-${dayNumber}`, '1');
       isUnlocked = true;
       codeInput.disabled = true;
       // Remove the button once unlocked to match already-unlocked state
       openBtn.style.display = 'none';
+      addLockButton();
       // Compute hash of the entered code to select image by hash filename
       let enteredHash: string | null = null;
       try {

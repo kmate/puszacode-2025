@@ -30,27 +30,7 @@ export class Calendar {
         const devMode = urlParams.get('dev') === '1';
         const simulatedDay = urlParams.get('day');
         
-        // Dev mode: add Lock All button at the top
-        if (devMode) {
-            const lockAllBtn = document.createElement('button');
-            lockAllBtn.textContent = '🔒 Lock All Days';
-            lockAllBtn.className = 'lock-all-btn';
-            lockAllBtn.style.cssText = 'margin: 20px auto; display: block; padding: 10px 20px; font-size: 16px; cursor: pointer;';
-            lockAllBtn.addEventListener('click', () => {
-                // Remove all day-unlocked-* entries from localStorage
-                const keysToRemove = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith('day-unlocked-')) {
-                        keysToRemove.push(key);
-                    }
-                }
-                keysToRemove.forEach(key => localStorage.removeItem(key));
-                alert('All days locked! Refreshing...');
-                window.location.reload();
-            });
-            wrapper.appendChild(lockAllBtn);
-        }
+        // We will add the Lock All button later at the bottom only if devMode AND any days are unlocked
         
         // Determine current day for visibility
         const now = new Date();
@@ -85,8 +65,28 @@ export class Calendar {
             calendarContainer.appendChild(dayElement);
         });
 
-            wrapper.appendChild(calendarContainer);
-            return wrapper;
+        wrapper.appendChild(calendarContainer);
+
+        // Dev mode: conditionally append Lock All button at bottom if there is at least one unlocked day
+        if (devMode) {
+            let anyUnlocked = false;
+            for (let i = 1; i <= 24; i++) {
+                if (localStorage.getItem(`day-unlocked-${i}`) === '1') { anyUnlocked = true; break; }
+            }
+            if (anyUnlocked) {
+                const lockAllBtn = document.createElement('button');
+                lockAllBtn.textContent = '🔒 Lock All Days';
+                lockAllBtn.className = 'lock-all-btn';
+                lockAllBtn.addEventListener('click', () => {
+                    for (let i = 1; i <= 24; i++) localStorage.removeItem(`day-unlocked-${i}`);
+                    lockAllBtn.textContent = '🔐 All Locked – refreshing…';
+                    setTimeout(() => window.location.reload(), 600);
+                });
+                wrapper.appendChild(lockAllBtn);
+            }
+        }
+
+        return wrapper;
     }
 
     handleDayClick(day: { day: number }) {

@@ -233,6 +233,34 @@ button#open-door[disabled] {
     border: 2px solid var(--gold);
 }
 
+/* Dev mode lock buttons */
+.lock-btn, .lock-all-btn {
+    margin-top: 12px;
+    padding: 8px 14px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+    background: linear-gradient(180deg, #3a5f51, #2d4a40);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(200,162,74,0.25), 0 8px 18px rgba(0,0,0,0.18);
+    transition: transform 140ms ease, box-shadow 140ms ease, background 160ms ease;
+}
+.lock-btn:hover, .lock-all-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 rgba(200,162,74,0.30), 0 14px 26px rgba(0,0,0,0.22);
+}
+.lock-btn:active, .lock-all-btn:active {
+    transform: translateY(0);
+}
+.lock-all-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Syntax highlighting for code blocks */
 #content pre {
     margin: 16px 0;
