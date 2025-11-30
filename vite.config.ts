@@ -4,4 +4,7 @@ import { defineConfig } from 'vite';
 // Using workspace folder name as default: 'puszacode-2025'
 export default defineConfig({
   base: '/puszacode-2025/',
+  optimizeDeps: {
+    include: ['markdown-it']
+  }
 });
