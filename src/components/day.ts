@@ -78,6 +78,10 @@ function mdToHtml(md: string): string {
 }
 
 export function renderDay(dayNumber: number): HTMLElement {
+  // Outer wrapper to allow dev banner to sit outside the styled day container
+  const outer = document.createElement('div');
+  outer.className = 'day-view-wrapper';
+
   const container = document.createElement('div');
   container.className = 'day-container';
 
@@ -85,11 +89,7 @@ export function renderDay(dayNumber: number): HTMLElement {
   const urlParams = new URLSearchParams(window.location.search);
   const devMode = urlParams.get('dev') === '1';
 
-  const h1 = document.createElement('h1');
-  h1.innerHTML = `Day <span id="day-number">${dayNumber}</span>`;
-  container.appendChild(h1);
-
-  // Dev banner also shown on day pages
+  // Dev banner above the title and outside the styled container
   if (devMode) {
     const devBanner = document.createElement('div');
     devBanner.className = 'dev-banner';
@@ -108,8 +108,12 @@ export function renderDay(dayNumber: number): HTMLElement {
     });
     devBanner.appendChild(bannerText);
     devBanner.appendChild(exitBtn);
-    container.appendChild(devBanner);
+    outer.appendChild(devBanner);
   }
+
+  const h1 = document.createElement('h1');
+  h1.innerHTML = `Day <span id="day-number">${dayNumber}</span>`;
+  container.appendChild(h1);
 
   const content = document.createElement('div');
   content.id = 'content';
@@ -262,5 +266,6 @@ export function renderDay(dayNumber: number): HTMLElement {
     }
   });
 
-  return container;
+  outer.appendChild(container);
+  return outer;
 }
