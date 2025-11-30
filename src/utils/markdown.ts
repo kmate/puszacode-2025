@@ -1,42 +1,35 @@
-// Markdown conversion logic extracted from day component.
-// Behavior preserved exactly.
+// Markdown conversion implemented with markdown-it for robust parsing.
 import Prism from 'prismjs';
 import 'prismjs/components/prism-java';
 import 'prismjs/themes/prism-tomorrow.css';
+import MarkdownIt from 'markdown-it';
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+const mdParser = new MarkdownIt({
+  html: false,
+  breaks: false,
+  linkify: true,
+  typographer: true,
+  highlight: (str: string, lang?: string) => {
+    // For ASCII art or when language not recognized, render raw
+    if (!lang || !(Prism.languages as any)[lang]) {
+      return `<pre><code>${escapeHtml(str)}</code></pre>`;
+    }
+    try {
+      const highlighted = Prism.highlight(str, (Prism.languages as any)[lang], lang);
+      return `<pre class="language-${lang}"><code class="language-${lang}">${highlighted}</code></pre>`;
+    } catch {
+      return `<pre><code>${escapeHtml(str)}</code></pre>`;
+    }
+  }
+});
 
 export function mdToHtml(md: string): string {
-  let html = md.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
-    const language = lang || 'java';
-    const trimmedCode = code.trim();
-    try {
-      const highlighted = Prism.highlight(
-        trimmedCode,
-        (Prism.languages as any)[language] || Prism.languages.java,
-        language
-      );
-      return `<pre class="language-${language}"><code class="language-${language}">${highlighted}</code></pre>`;
-    } catch {
-      return `<pre class="language-${language}"><code class="language-${language}">${trimmedCode}</code></pre>`;
-    }
-  });
-
-  html = html
-    .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
-    .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
-    .replace(/^#\s+(.*)$/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/^\s*[-*]\s+(.*)$/gm, '<li>$1</li>');
-
-  html = html.replace(/((<li>[\s\S]*?<\/li>\n?)+)/g, m => `<ul>${m.replace(/\n/g, '')}</ul>`);
-
-  const blocks = html.split(/\n\n+/);
-  html = blocks.map(block => {
-    const trimmed = block.trim();
-    if (/^<(h\d|ul|pre|li|strong)/.test(trimmed)) return trimmed;
-    return trimmed ? `<p>${trimmed.replace(/\n/g, '<br>')}</p>` : '';
-  }).filter(Boolean).join('\n');
-
-  return html;
+  return mdParser.render(md);
 }

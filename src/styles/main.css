@@ -332,18 +332,30 @@ button#open-door[disabled] {
     border-radius: 10px;
     overflow-x: auto;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    white-space: pre;
+    font-family: 'Courier New', Courier, 'Consolas', 'Monaco', monospace !important;
 }
 
 #content pre code {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-family: 'Courier New', Courier, 'Consolas', 'Monaco', monospace !important;
     font-size: 14px;
     line-height: 1.6;
     color: #d4d4d4;
     background: none;
+    white-space: pre;
 }
 
-/* Inline code styling */
-#content code:not([class*="language-"]) {
+/* Fallback: any code block missing language class still forced monospace */
+#content code[class*="language-"] {
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Inline code styling - only applies to inline code, not code blocks */
+#content p code,
+#content li code,
+#content h1 code,
+#content h2 code,
+#content h3 code {
     padding: 2px 6px;
     background: rgba(200, 162, 74, 0.2);
     border: 1px solid rgba(200, 162, 74, 0.4);
