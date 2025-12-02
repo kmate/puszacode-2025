@@ -7,6 +7,10 @@ export function getBase(): string {
   return ''; // Deployment-relative root as before
 }
 
+// Cache-busting suffix for reward asset filenames (append after hash)
+// Keep in sync with actual filenames in public/assets.
+export const assetSuffix = '-ef70bb';
+
 export async function loadCodes(): Promise<Record<string, string>> {
   if (codesCache) return codesCache;
   try {

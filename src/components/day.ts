@@ -1,6 +1,6 @@
 import { verifyCode, sha256Hex } from '../utils/codeValidation';
 import { mdToHtml } from '../utils/markdown';
-import { loadCodes, getBase } from '../utils/codes';
+import { loadCodes, getBase, assetSuffix } from '../utils/codes';
 import { isDevMode } from '../utils/devMode';
 import { buildDevBanner } from './devBanner';
 import { el, button } from '../utils/dom';
@@ -120,7 +120,7 @@ export function renderDay(dayNumber: number): HTMLElement {
   });
 
   function loadImage(hash?: string | null) {
-    const srcByHash = hash ? `${getBase()}assets/day-${dayNumber}-${hash}.svg` : '';
+    const srcByHash = hash ? `${getBase()}assets/day-${dayNumber}-${hash}${assetSuffix}.svg` : '';
     reveal.innerHTML = '';
     if (!srcByHash) {
       status.textContent += ' (image missing)';
