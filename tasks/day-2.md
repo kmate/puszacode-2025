@@ -10,7 +10,7 @@ countVowels("hello") → 2  // e, o
 countVowels("sky") → 0
 countVowels("AEIOU") → 5
 countVowels("Programming") → 3  // o, a, i
-countVowels("Java 2024!") → 3   // a, a, a
+countVowels("Java 2024!") → 2   // a, a
 countVowels("") → 0
 ```
 
