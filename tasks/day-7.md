@@ -1,18 +1,22 @@
-# Array Statistics
+# Longest Palindromic Substring
 
-Welcome to arrays! 📚
+Let's find patterns in strings! 🎯
 
-Write a method called `getRange` that takes an array of integers and returns the difference between the minimum and maximum values(min - max, which will be negative).
+Write a method called `longestPalindrome` that:
+1. Takes a string as input
+2. Finds the longest contiguous substring that is a palindrome (reads the same forwards and backwards)
+3. Returns the **length** of that palindrome substring
 
-**Example:**
+**Examples:**
 ```java
-getRange(new int[]{1, 5, 3, 9, 2}) → -8  // 1 - 9
-getRange(new int[]{10, 20, 30}) → -20   // 10 - 30
-getRange(new int[]{5}) → 0              // 5 - 5
+longestPalindrome("racecar") → 7        // entire string is a palindrome
+longestPalindrome("abaxyz") → 3         // "aba" is a palindrome
+longestPalindrome("noon") → 4           // entire string is a palindrome
+longestPalindrome("abcde") → 1          // single characters are palindromes
+longestPalindrome("abcdcba") → 7        // entire string is a palindrome
 ```
 
-
 **Your task:**
-Create the method and calculate `getRange(new int[]{15, 3, 22, 8, 17})`. The unlock code is this result.
+Compute `longestPalindrome("racecarxyzabadefggfedpqr")`. The unlock code is the length of the longest palindromic substring.
 
-**Hint:** Find both max and min, then subtract(min - max)!
+**Hint:** You can check every possible substring to see if it's a palindrome, or use a more efficient approach like expanding around centers.
